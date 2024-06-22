@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Курсовая_работа2.RegistrationUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Курсовая_работа2"
+             mc:Ignorable="d" 
+             Background="Transparent"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Background="#18181f">
+        <Grid ShowGridLines="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <!--Верхняя панель-->
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Зарегистрироваться" Margin="0 10 0 0"
+                    Style="{StaticResource TextBlockInfo}"
+                    FontSize="25"/>
+            </StackPanel>
+
+            <Border Grid.Row="1" BorderBrush="White" BorderThickness="2" Margin="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150*"/>
+                        <ColumnDefinition Width="225*"/>
+                        <ColumnDefinition Width="208*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Margin="0,10,0,41" Grid.RowSpan="3">
+                        <TextBlock Text="ФАМИЛИЯ" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" FontSize="10"/>
+                        <TextBlock Text="ИМЯ" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" FontSize="10"/>
+                        <TextBlock Text="ОТЧЕСТВО" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" FontSize="10"/>
+                        <TextBlock Text="ТЕЛЕФОН" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" FontSize="10"/>
+                        <TextBlock Text="ПОЧТА" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" FontSize="10"/>
+                        <TextBlock Text="ДАТА РОЖДЕНИЯ" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" FontSize="10"/>
+                        <TextBlock Text="ПОЛ" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" FontSize="10"/>
+                        <TextBlock Text="СНИЛС" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 20 0 0" FontSize="10"/>
+                        <TextBlock Text="ПРИДУМАЙТЕ ПАРОЛЬ" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 15 0 0" Foreground="#18bc84" FontSize="10"/>
+                        <TextBlock Text="ПОВТОРИТЕ ПАРОЛЬ" Style="{StaticResource TextBlockInfo}" HorizontalAlignment="Left" Margin="20 10 0 0" Foreground="#18bc84" FontSize="10"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.ColumnSpan="3" Margin="200,10,208,41" Grid.RowSpan="3">
+                        <TextBox Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                                 Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="usersurname"/>
+
+                        <TextBox Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                                 Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="username"/>
+
+                        <TextBox Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                                 Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="userpatronymicname"/>
+
+                        <TextBox Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                                 Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="userphone"/>
+
+                        <TextBox Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                                 Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="useremail"/>
+
+                        <DatePicker Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Foreground="White"
+                                 Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="userbirth"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                            <RadioButton x:Name="MaleRadioButton" Content="Мужской" Margin="0,0,10,0" Foreground="White"/>
+                            <RadioButton x:Name="FemaleRadioButton" Content="Женский" Margin="0,0,10,0" Foreground="White"/>
+                        </StackPanel>
+
+                        <TextBox Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                             Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="usersnils"/>
+
+                        <PasswordBox Width="200" Margin="0 15 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                                 Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="userpassword"/>
+
+                        <PasswordBox Width="200" Margin="0 10 0 0" HorizontalAlignment="Stretch" Height="13" Foreground="White" FontSize="9"
+                                Background="Transparent" BorderBrush="White" BorderThickness="1" x:Name="repeatpassword"/>
+                    </StackPanel>
+
+                    <Border Grid.Row="2" Grid.Column="2" CornerRadius="10" Background="#18bc84" Margin="100 0 10 10" Grid.ColumnSpan="2">
+                        <Button Background="Transparent" Content="ЗАРЕГИСТРИРОВАТЬСЯ" BorderBrush="Transparent" BorderThickness="0"
+                            Foreground="White" FontSize="10" FontWeight="Bold" Click="ApplyRegistration_ButtonClick">
+                        </Button>
+                    </Border>
+
+                </Grid>
+
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>
