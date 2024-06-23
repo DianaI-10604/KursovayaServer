@@ -47,6 +47,7 @@ namespace Курсовая_работа2
 
                     // Вызываем событие, чтобы сообщить MainWindow об авторизации пользователя
                     OnUserAuthenticated(new UserAuthenticatedEventArgs(user));
+                    mainWindow.SetAuthenticatedUser(user);
                 }
                 else
                 {

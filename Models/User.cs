@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 namespace Курсовая_работа2.Models;
 
-public partial class User
+public partial class User: INotifyPropertyChanged
 {
     public int Id { get; set; }
 
@@ -28,4 +30,10 @@ public partial class User
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 
     public virtual ICollection<Medicalrecord> Medicalrecords { get; set; } = new List<Medicalrecord>();
+
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

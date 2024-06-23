@@ -40,13 +40,12 @@
                                VerticalAlignment="Center"
                                 Style="{StaticResource TextBlockInfo}" Margin="70 0 0 0"
                                 FontSize="20">
-                        <Run Text="Добро пожаловать, "/>
-                        <Run Text="{Binding Username}"/>
+                        Поликлиника №33 yл. Оскаленко, 18
                     </TextBlock>
                 </StackPanel>
 
                 <ContentControl Grid.Row="1" Grid.Column="1" x:Name="ContentControlPage">
-                    <local:ServicesWithoutAuthorization/>
+                    <local:MyProfile/>
                 </ContentControl>
                 <!-- Основной контент -->
             </Grid>
@@ -76,8 +75,6 @@
                     <Button Content="Вызов врача на дом" Style="{StaticResource ButtonText}" Click="ServiceWithoutAuth"/>
 
                     <Button Content="Мои посещения" Style="{StaticResource ButtonText}" Click="MyAppointments"/>
-
-                    <Button Content="Предстоящие посещения" Style="{StaticResource ButtonText}"/>
 
                     <Button Content="Медицинская карта" Style="{StaticResource ButtonText}" 
                             Click="MedicalRecords_ButtonClick"/>

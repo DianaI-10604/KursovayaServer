@@ -59,7 +59,7 @@ namespace Курсовая_работа2
 
         private void Authorization_UserAuthenticated(object sender, UserAuthenticatedEventArgs e)
         {
-            _authenticatedUser = e.AuthenticatedUser;
+            this.SetAuthenticatedUser(e.AuthenticatedUser); // Установить авторизованного пользователя в главном окне
             NavigateToMainMenu();
         }
 
@@ -153,10 +153,12 @@ namespace Курсовая_работа2
 
         private void ExitUser_ButtonClick(object sender, RoutedEventArgs e)
         {
-            _authenticatedUser = null; // Сброс авторизованного пользователя
-            var authorization = new Authorization();
-            //authorization.UserAuthenticated += Authorization_UserAuthenticated;
-            ContentControlPage.Content = authorization;
+            _authenticatedUser = null;
+            // Очистка данных пользователя (токены, сессии и прочее)
+
+            var authorization = new Authorization(); // Создание нового экземпляра окна авторизации
+            authorization.UserAuthenticated += Authorization_UserAuthenticated; // Подписка на событие успешной авторизации
+            ContentControlPage.Content = new ServicesWithoutAuthorization(); // Перенаправление на окно с неавторизованными сервисами
         }
 
         private void MyProfile_ButtonClick(object sender, RoutedEventArgs e)

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,48 +27,168 @@ namespace Курсовая_работа2
     {
         private User _user;
 
+        public MyProfile()
+        {
+            InitializeComponent();
+        }
         public MyProfile(User user)
         {
             InitializeComponent();
             _user = user;
-            Username = $"{_user.Usersurname} {_user.Username} {_user.Userpatronymicname}";
-            DataContext = this;
+            LoadUserData();
+            DataContext = _user;
         }
 
-        public string Username { get; set; }
+        private void LoadUserData()
+        {
+            Username = $"{_user.Usersurname} {_user.Username} {_user.Userpatronymicname}";
+            Email = _user.Email;
+            Phonenumber = _user.Phonenumber;
+            Birthdate = _user.Birthdate;
+            Gender = _user.Gender;
+            Snils = _user.Snils;
+        }
 
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                _username = value;
+                OnPropertyChanged(nameof(Username));
+            }
+        }
 
-        //private void LoadUserData()
-        //{
-        //    // Пример использования контекста базы данных для получения данных пользователя
-        //    using (var context = new PolyclinicContext())
-        //    {
-        //        // Предполагается, что текущий авторизованный пользователь имеет ID = 1
-        //        // Замените на фактический ID авторизованного пользователя
-        //        int userId = 1;
+        private string _usersurname;
+        public string Usersurname
+        {
+            get => _usersurname;
+            set
+            {
+                _usersurname = value;
+                OnPropertyChanged(nameof(Usersurname));
+            }
+        }
 
-        //        var user = context.Users
-        //                          .Where(u => u.Id == userId)
-        //                          .Select(u => new
-        //                          {
-        //                              FullName = u.Usersurname + " " + u.Username + " " + u.Userpatronymicname
-        //                          })
-        //                          .FirstOrDefault();
+        private string _userpatronymicname;
+        public string Userpatronymicname
+        {
+            get => _userpatronymicname;
+            set
+            {
+                _userpatronymicname = value;
+                OnPropertyChanged(nameof(Userpatronymicname));
+            }
+        }
 
-        //        if (user != null)
-        //        {
-        //            Username = user.FullName;
-        //        }
-        //    }
+        private string _userpassword;
+        public string Userpassword
+        {
+            get => _userpassword;
+            set
+            {
+                _userpassword = value;
+                OnPropertyChanged(nameof(Userpassword));
+            }
+        }
 
-        //    // Привязка значения к элементу управления
-        //    DataContext = this;
-        //}
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+
+        private string _snils;
+        public string Snils
+        {
+            get => _snils;
+            set
+            {
+                _snils = value;
+                OnPropertyChanged(nameof(Snils));
+            }
+        }
+
+        private string _gender;
+        public string Gender
+        {
+            get => _gender;
+            set
+            {
+                _gender = value;
+                OnPropertyChanged(nameof(Gender));
+            }
+        }
+
+        private string _phonenumber;
+        public string Phonenumber
+        {
+            get => _phonenumber;
+            set
+            {
+                _phonenumber = value;
+                OnPropertyChanged(nameof(Phonenumber));
+            }
+        }
+
+        private DateOnly? _birthdate;
+        public DateOnly? Birthdate
+        {
+            get => _birthdate;
+            set
+            {
+                _birthdate = value;
+                OnPropertyChanged(nameof(Birthdate));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        //меняем пароль пользователя
+        private void UpdatePassword_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            PasswordBox newpassword = (PasswordBox)this.FindName("NewPassword"); // Находим элемент PasswordBox по его имени
+            string newPassword = newpassword.Password; // Получаем введенный новый пароль
+
+            PasswordBox repeatpassword = (PasswordBox)this.FindName("NewPassword"); // Находим элемент PasswordBox по его имени
+            string repeatPassword = repeatpassword.Password; // Получаем повтор пароля
+
+            if (newPassword != repeatPassword)
+            {
+                MessageBox.Show("Пароли не совпадают!");
+            }
+
+            else if (newPassword == repeatPassword) //если пароли совпадают
+            {
+                UpdatePassword(newPassword);
+                MessageBox.Show("Пароль успешно изменен!");
+            }
+        }
+
+        private void UpdatePassword(string newPassword)
+        {
+            using (var dbContext = new User999Context()) // Создаем экземпляр контекста базы данных
+            {
+                var existingUser = dbContext.Users.FirstOrDefault(u => u.Id == _user.Id); // Находим пользователя в базе данных по его идентификатору
+
+                if (existingUser != null)
+                {
+                    existingUser.Userpassword = newPassword; // Обновляем пароль пользователя
+
+                    dbContext.SaveChanges(); // Сохраняем изменения в базе данных
+                }
+            }
         }
     }
 }
