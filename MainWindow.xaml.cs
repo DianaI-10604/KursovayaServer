@@ -79,7 +79,7 @@ namespace Курсовая_работа2
             InfoVisibility = Visibility.Visible;
         }
 
-        private void CloseSideMenu()
+        public void CloseSideMenu()
         {
             DoubleAnimation animation = new DoubleAnimation(40, TimeSpan.FromSeconds(0.2));
             SideMenu.BeginAnimation(Grid.WidthProperty, animation);
@@ -112,6 +112,8 @@ namespace Курсовая_работа2
             {
                 MedicalRecords records = new MedicalRecords(_authenticatedUser);
                 ContentControlPage.Content = records;
+
+                CloseSideMenu();
             }
             else
             {
@@ -124,8 +126,10 @@ namespace Курсовая_работа2
         {
             if (_authenticatedUser != null)
             {
-                DoctorAppointment appointment = new DoctorAppointment();
+                DoctorAppointment appointment = new DoctorAppointment(_authenticatedUser);
                 ContentControlPage.Content = appointment;
+
+                CloseSideMenu();
             }
             else
             {
@@ -139,6 +143,8 @@ namespace Курсовая_работа2
             {
                 UserAppointmentsList appointmentsList = new UserAppointmentsList(_authenticatedUser);
                 ContentControlPage.Content = appointmentsList;
+
+                CloseSideMenu();
             }
             else
             {
@@ -167,6 +173,8 @@ namespace Курсовая_работа2
             {
                 MyProfile myProfile = new MyProfile(_authenticatedUser);
                 ContentControlPage.Content = myProfile;
+
+                CloseSideMenu();
             }
             else
             {
@@ -180,6 +188,8 @@ namespace Курсовая_работа2
             {
                 TheMainMenu mainMenu = new TheMainMenu();
                 ContentControlPage.Content = mainMenu;
+
+                CloseSideMenu();
             }
             else
             {
@@ -197,6 +207,8 @@ namespace Курсовая_работа2
         {
             var servicesWithoutAuthorization = new ServicesWithoutAuthorization();
             ContentControlPage.Content = servicesWithoutAuthorization;
+
+            CloseSideMenu();
         }
     }
 }

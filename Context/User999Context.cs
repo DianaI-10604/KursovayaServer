@@ -58,6 +58,7 @@ public partial class User999Context : DbContext
                 .HasForeignKey(d => d.Userid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("appointments_userid_fkey");
+            //entity.Property(e => e.AppointmentCancelButtonVisibility).HasColumnName("appointmentcancelbuttonvisibility");
         });
 
         modelBuilder.Entity<Calldoctorwithoutauth>(entity =>

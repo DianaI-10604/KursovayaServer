@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using Курсовая_работа2.Context;
 using Курсовая_работа2.Models;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Курсовая_работа2
 {
@@ -81,9 +82,55 @@ namespace Курсовая_работа2
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string propertyName)
+
+        protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        //отмена записи
+        private void CancelAppointment_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Получаем выбранный элемент из коллекции UserAppointmentsCollection
+            Appointment selectedAppointment = (sender as Button).DataContext as Appointment;
+
+            // Удаляем выбранный элемент из базы данных
+            MessageBoxResult result = MessageBox.Show("Вы уверены? Отменить это дейстие будет нельзя", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                // Удаляем выбранный элемент из базы данных
+                using (var context = new User999Context())
+                {
+                    context.Appointments.Remove(selectedAppointment);
+                    context.SaveChanges();
+                }
+
+                // Удаляем выбранный элемент из коллекции AllAppointmentsCollection и UserAppointmentsCollection
+                AllAppointmentsCollection.Remove(selectedAppointment);
+                UserAppointmentsCollection.Remove(selectedAppointment);
+            }
+        }
+    }
+
+    public class StatusToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string status = value as string;
+            if (status == "Предстоящие")
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
